@@ -14,6 +14,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Image extends Model
 {
+    public function pathProduct()
+    {
+        return env('APP_URL') . '/images/products/' . $this->path;
+    }
+
     public function imageable()
     {
         return $this->morphTo();

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Traits\DatesTranslator;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    use DatesTranslator;
 
     protected $fillable = [
         'seller_id', 'category_id', 'buyer_id', 'title', 'description', 'price'
@@ -23,14 +26,20 @@ class Product extends Model
     const PENDING = 2;
     const REJECTED = 3;
 
-    public function seller()
-    {
-        return $this->belongsTo(Seller::class);
-    }
 
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class);
     }
 
     public function productCar()
@@ -52,4 +61,22 @@ class Product extends Model
     {
         return $this->hasOne(ProductMeta::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getExpiratedAtAttribute()
+    {
+        $created = $this->attributes['created_at'];
+        $exp = Carbon::parse($created)->addDays(30)->isoFormat('dddd, D \\d\\e MMMM \\d\\e Y');
+        return $exp;
+    }
+
+    public function getCurrencyAttribute()
+    {
+        return number_format($this->attributes['price'], 0, ',', '.');
+    }
+
 }

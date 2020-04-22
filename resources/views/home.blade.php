@@ -1,15 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-
+    <div class="container">
+        <div class="row justify-content-center">
+            @forelse($products as $product)
+                <div class="col-md-3">
+                    @include('partials.product.card')
                 </div>
-            </div>
+            @empty
+                <div class="alert alert-dark">
+                    {{ __('No hay productos disponibles') }}
+                </div>
+            @endforelse
+        </div>
+        <div class="row justify-content-center mt-4">
+            {{ $products->links() }}
         </div>
     </div>
-</div>
 @endsection

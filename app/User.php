@@ -54,6 +54,16 @@ class User extends Authenticatable
         return auth()->check() ? auth()->user()->role->name : 'guest';
     }
 
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -74,19 +84,9 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
-
     public function searches()
     {
         return $this->hasMany(Search::class);
-    }
-
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'imageable');
     }
 
     public function socialAccount()
