@@ -1,0 +1,32 @@
+.navbar-quotated {
+  background: {
+    color: $quo-principal;
+  }
+  a {
+    color: $quo-menu-text !important;
+    transition: 300ms;
+    &:hover {
+      color: lighten($quo-principal, 35) !important;
+    }
+  }
+  .btn-secondary {
+    background-color: $quo-principal;
+    border-color: $quo-menu-text;
+    &:hover {
+      border-color: $quo-menu-text;
+      i {
+        color: lighten($quo-principal, 30);
+      }
+    }
+    i {
+      transition: all 300ms;
+      color: $quo-menu-text;
+    }
+  }
+
+  a.btn-outline-light {
+    &:hover {
+      color: lighten($quo-principal, 20) !important;
+    }
+  }
+}
