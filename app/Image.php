@@ -19,6 +19,11 @@ class Image extends Model
         return env('APP_URL') . '/images/products/' . $this->path;
     }
 
+    public function pathUser()
+    {
+        return env('APP_URL') . '/images/users/' . $this->path;
+    }
+
     public function imageable()
     {
         return $this->morphTo();
