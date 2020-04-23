@@ -1,4 +1,4 @@
-<div class="card my-2">
+<div class="card h-100">
     @if ($product->images->count() > 0)
         <img class="card-img-top" src="{{ $product->images[0]->pathProduct() ?? '' }}" alt="{{ $product->title }}" />
     @endif
