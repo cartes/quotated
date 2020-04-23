@@ -29,3 +29,5 @@ Route::get('/images/{path}/{attachment}', function ($path, $attachment) {
         return Image::make($file)->response();
     }
 });
+
+
