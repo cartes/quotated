@@ -11,6 +11,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property int $user_id
+ * @property string|null $title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Product[] $products
+ * @property-read int|null $products_count
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Buyer whereUserId($value)
  */
 class Buyer extends Model
 {

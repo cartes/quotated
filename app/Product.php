@@ -13,6 +13,43 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Product query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property int $seller_id
+ * @property int $category_id
+ * @property int|null $buyer_id
+ * @property string $title
+ * @property string $slug
+ * @property string $description
+ * @property int $price
+ * @property int|null $quantity
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Category $category
+ * @property-read mixed $currency
+ * @property-read mixed $deleted_at
+ * @property-read mixed $expirated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Image[] $images
+ * @property-read int|null $images_count
+ * @property-read \App\ProductCar $productCar
+ * @property-read \App\ProductEstate $productEstate
+ * @property-read \App\ProductMeta $productMeta
+ * @property-read \App\ProductService $productService
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Review[] $reviews
+ * @property-read int|null $reviews_count
+ * @property-read \App\Seller $seller
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereBuyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereSellerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Product whereUpdatedAt($value)
  */
 class Product extends Model
 {

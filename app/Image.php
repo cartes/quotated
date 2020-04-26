@@ -11,6 +11,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Image newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Image query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $path
+ * @property string $picture
+ * @property string $imageable_type
+ * @property int $imageable_id
+ * @property int|null $order
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $imageable
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image whereImageableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image whereImageableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image wherePicture($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Image whereUpdatedAt($value)
  */
 class Image extends Model
 {
