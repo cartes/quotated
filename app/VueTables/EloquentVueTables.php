@@ -24,6 +24,18 @@ class EloquentVueTables implements VueTablesInterface
         }
 
         $count = $data->count();
+        $data->limit($limit)->skip($limit * ($page - 1));
+        if (isset($orderBy)) {
+            $direction = $ascending == 1 ? "ASC" : "DESC";
+            $data->orderBy($orderBy, $direction);
+        }
+
+        $results = $data->get()->toArray();
+
+        return [
+            'data' => $results,
+            'count' => $count,
+        ];
     }
 
     protected function filter($data, $query, $fields)
