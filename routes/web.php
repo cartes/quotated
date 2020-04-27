@@ -31,5 +31,6 @@ Route::get('/images/{path}/{attachment}', function ($path, $attachment) {
 });
 
 Route::group(['prefix' => 'category'], function () {
-   Route::get('/admin', "AdminController@categories")->name('category.admin');
+   Route::get('/categories', "AdminController@categories")->name('category.admin');
+   Route::get('/categories_json', "AdminController@categoriesJSON")->name("admin.categories_json");
 });
