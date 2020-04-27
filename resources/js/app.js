@@ -28,6 +28,9 @@ Vue.use(VueResource);
 import Categories from "./components/Categories";
 Vue.component("categories-list", Categories);
 
+import ModalEditCategory from "./components/ModalEditCategory";
+Vue.component("modal-category", ModalEditCategory);
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**

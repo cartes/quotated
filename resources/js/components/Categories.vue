@@ -5,10 +5,11 @@
         </div>
         <v-server-table ref="table" :columns="columns" :url="url" :options="options">
             <div slot="edit" slot-scope="props">
-                <a v-bind:href="'/admin/category/edit/' + props.row.id"
+                <!-- v-bind:href="'/admin/category/' + props.row.id + '/edit/'" -->
+                <button @click="callModal(props.row.id)"
                     type="button"
                     class="btn btn-secondary btn-block"
-                    >Editar {{ props.row.title }}</a>
+                    >Edite {{ props.row.title }}</button>
             </div>
 
         </v-server-table>
@@ -17,6 +18,7 @@
 
 <script>
     import {Event} from "vue-tables-2";
+    import ModalEditCategory from "./ModalEditCategory";
 
     export default {
         name: "Categories",
@@ -56,11 +58,16 @@
                             console.log(e);
                         }.bind(this))
                     }
+                },
+                components: {
+                    ModalEditCategory
                 }
             }
         },
         methods: {
+            callModal(id) {
 
+            }
         }
     }
 </script>
