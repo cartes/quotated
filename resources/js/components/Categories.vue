@@ -3,13 +3,16 @@
         <div class="alert alert-primary text-center" v-if="processing">
             <i class="fa fa-compass"></i> Procesando información...
         </div>
-        <modal-edit-category :id="id" :route="route"></modal-edit-category>
+        <ModalEditCategory :id="id"
+                           :category="category">
+        </ModalEditCategory>
         <v-server-table ref="table" :columns="columns" :url="url" :options="options">
             <div slot="edit" slot-scope="props">
                 <button @click="callEdit(props.row.id)"
-                    type="button"
-                    class="btn btn-secondary btn-block"
-                    >Editar {{ props.row.title }}</button>
+                        type="button"
+                        class="btn btn-secondary btn-block"
+                >Editar {{ props.row.title }}
+                </button>
             </div>
 
         </v-server-table>
@@ -37,6 +40,7 @@
                 processing: false,
                 status: null,
                 id: 0,
+                category: {},
                 url: this.route,
                 columns: ['id', 'title', 'cat_parent', 'order', 'edit'],
                 options: {
@@ -52,7 +56,8 @@
                     },
                     sorteable: ['id', 'title', 'order'],
                     filterable: ['title'],
-                    requestFunction: function (data) {;
+                    requestFunction: function (data) {
+                        ;
                         return window.axios.get(this.url, {
                             params: data
                         }).catch(function (e) {
@@ -69,9 +74,14 @@
             callEdit(id) {
                 this.id = id;
                 let url = "/admin/category/" + id + "/edit";
-                axios.get(url).then(response => {
-                    console.log(response.data.category);
+                axios.get(url)
+                    .then(response => {
+                    this.category = response.data;
+                    this.$bvModal.show('categoryEdit');
                 })
+                    .catch(e => {
+                        console.log(e);
+                });
             }
         }
     }

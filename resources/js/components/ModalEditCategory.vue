@@ -1,8 +1,10 @@
 <template>
     <div>
-        <form class="form" method="post">
-            {{ id }}
-        </form>
+        <b-modal id="categoryEdit">
+            <form class="form" method="post">
+                {{ category.category }}
+            </form>
+        </b-modal>
     </div>
 </template>
 
@@ -10,11 +12,12 @@
     export default {
         name: "ModalEditCategory",
         props: {
-            route: {
-                type: String,
-            },
             id: {
                 type: Number,
+            },
+            category: {
+                type: Object,
+                required: false
             }
         },
     }

@@ -19,6 +19,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+import {BootstrapVue, IconsPlugin} from "bootstrap-vue";
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+
 import {ServerTable} from "vue-tables-2";
 Vue.use(ServerTable, {}, false, 'bootstrap4', 'default');
 
@@ -30,8 +34,6 @@ Vue.component("categories-list", Categories);
 
 import ModalEditCategory from "./components/ModalEditCategory";
 Vue.component("modal-category", ModalEditCategory);
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
