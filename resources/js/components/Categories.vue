@@ -4,7 +4,9 @@
             <i class="fa fa-compass"></i> Procesando información...
         </div>
         <ModalEditCategory :id="id"
-                           :category="category">
+                           :category="category"
+                           :parentOptions="parentOptions"
+        >
         </ModalEditCategory>
         <v-server-table ref="table" :columns="columns" :url="url" :options="options">
             <div slot="edit" slot-scope="props">
@@ -39,8 +41,17 @@
             return {
                 processing: false,
                 status: null,
+                parentOptions: [{value: null, text: "Sin categoría superior"}],
                 id: 0,
-                category: {},
+                category: {
+                    category: {
+                        title: null,
+                    },
+                    categories: {
+                        title: null,
+                        id: null,
+                    }
+                },
                 url: this.route,
                 columns: ['id', 'title', 'cat_parent', 'order', 'edit'],
                 options: {
@@ -57,7 +68,6 @@
                     sorteable: ['id', 'title', 'order'],
                     filterable: ['title'],
                     requestFunction: function (data) {
-                        ;
                         return window.axios.get(this.url, {
                             params: data
                         }).catch(function (e) {
@@ -77,6 +87,12 @@
                 axios.get(url)
                     .then(response => {
                     this.category = response.data;
+                    this.category.categories.forEach((item, index) => {
+                        this.parentOptions.push({
+                            value: item.id,
+                            text: item.title,
+                        });
+                    });
                     this.$bvModal.show('categoryEdit');
                 })
                     .catch(e => {
