@@ -86,18 +86,19 @@
                 let url = "/admin/category/" + id + "/edit";
                 axios.get(url)
                     .then(response => {
-                    this.category = response.data;
-                    this.category.categories.forEach((item, index) => {
-                        this.parentOptions.push({
-                            value: item.id,
-                            text: item.title,
+                        this.category = response.data;
+                        this.parentOptions = [{value: null, text: "Sin categoría superior"}];
+                        this.category.categories.forEach((item, index) => {
+                            this.parentOptions.push({
+                                value: item.id,
+                                text: item.title,
+                            });
                         });
-                    });
-                    this.$bvModal.show('categoryEdit');
-                })
+                        this.$bvModal.show('categoryEdit');
+                    })
                     .catch(e => {
                         console.log(e);
-                });
+                    });
             }
         }
     }
