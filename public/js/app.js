@@ -2034,6 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       processing: false,
       status: null,
+      id: 0,
       url: this.route,
       columns: ['id', 'title', 'cat_parent', 'order', 'edit'],
       options: {
@@ -2057,14 +2058,20 @@ __webpack_require__.r(__webpack_exports__);
             console.log(e);
           }.bind(this));
         }
-      },
-      components: {
-        ModalEditCategory: _ModalEditCategory__WEBPACK_IMPORTED_MODULE_1__["default"]
       }
     };
   },
+  components: {
+    ModalEditCategory: _ModalEditCategory__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   methods: {
-    callModal: function callModal(id) {}
+    callEdit: function callEdit(id) {
+      this.id = id;
+      var url = "/admin/category/" + id + "/edit";
+      axios.get(url).then(function (response) {
+        console.log(response.data.category);
+      });
+    }
   }
 });
 
@@ -2119,16 +2126,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ModalEditCategory",
   props: {
     route: {
-      type: String,
-      required: true
+      type: String
     },
     id: {
-      type: String,
-      required: true
+      type: Number
     }
   }
 });
@@ -40404,6 +40410,8 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
+      _c("modal-edit-category", { attrs: { id: _vm.id, route: _vm.route } }),
+      _vm._v(" "),
       _c("v-server-table", {
         ref: "table",
         attrs: { columns: _vm.columns, url: _vm.url, options: _vm.options },
@@ -40419,11 +40427,11 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        return _vm.callModal(props.row.id)
+                        return _vm.callEdit(props.row.id)
                       }
                     }
                   },
-                  [_vm._v("Edite " + _vm._s(props.row.title))]
+                  [_vm._v("Editar " + _vm._s(props.row.title))]
                 )
               ])
             }
@@ -40503,8 +40511,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", { staticClass: "form", attrs: { method: "post" } }, [
-    _vm._v('\n    @csrf\n    @method("PUT")\n')
+  return _c("div", [
+    _c("form", { staticClass: "form", attrs: { method: "post" } }, [
+      _vm._v("\n        " + _vm._s(_vm.id) + "\n    ")
+    ])
   ])
 }
 var staticRenderFns = []
@@ -61835,8 +61845,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/cristiancartes/Documents/prototipos/quotated/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/cristiancartes/Documents/prototipos/quotated/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/cristian/Documents/prototipos/quotated/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/cristian/Documents/prototipos/quotated/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

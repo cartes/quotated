@@ -9,12 +9,6 @@
             </div>
         </div>
         <div class="modal-body">
-            <modal-category
-                :id = "{{ id }}"
-                route="{{ route("admin.category.edit", id) }}"
-            >
-
-            </modal-category>
         </div>
     </div>
 </div>

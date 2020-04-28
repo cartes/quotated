@@ -3,13 +3,13 @@
         <div class="alert alert-primary text-center" v-if="processing">
             <i class="fa fa-compass"></i> Procesando información...
         </div>
+        <modal-edit-category :id="id" :route="route"></modal-edit-category>
         <v-server-table ref="table" :columns="columns" :url="url" :options="options">
             <div slot="edit" slot-scope="props">
-                <!-- v-bind:href="'/admin/category/' + props.row.id + '/edit/'" -->
-                <button @click="callModal(props.row.id)"
+                <button @click="callEdit(props.row.id)"
                     type="button"
                     class="btn btn-secondary btn-block"
-                    >Edite {{ props.row.title }}</button>
+                    >Editar {{ props.row.title }}</button>
             </div>
 
         </v-server-table>
@@ -36,6 +36,7 @@
             return {
                 processing: false,
                 status: null,
+                id: 0,
                 url: this.route,
                 columns: ['id', 'title', 'cat_parent', 'order', 'edit'],
                 options: {
@@ -59,14 +60,18 @@
                         }.bind(this))
                     }
                 },
-                components: {
-                    ModalEditCategory
-                }
             }
         },
+        components: {
+            ModalEditCategory
+        },
         methods: {
-            callModal(id) {
-
+            callEdit(id) {
+                this.id = id;
+                let url = "/admin/category/" + id + "/edit";
+                axios.get(url).then(response => {
+                    console.log(response.data.category);
+                })
             }
         }
     }

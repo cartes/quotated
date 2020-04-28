@@ -29,9 +29,11 @@ class AdminController extends Controller
         $categories = Category::all();
         $category = $categories->where('id', $id)->first();
 
-        return view("admin.edit.category")->with([
-            'category' => $category,
-            'categories' => $categories,
-        ]);
+        $data = [
+            "categories" => $categories,
+            "category" => $category,
+        ];
+
+        return response()->json($data);
     }
 }

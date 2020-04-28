@@ -1,8 +1,9 @@
 <template>
-    <form class="form" method="post">
-        @csrf
-        @method("PUT")
-    </form>
+    <div>
+        <form class="form" method="post">
+            {{ id }}
+        </form>
+    </div>
 </template>
 
 <script>
@@ -11,13 +12,11 @@
         props: {
             route: {
                 type: String,
-                required: true,
             },
             id: {
-                type: String,
-                required: true
+                type: Number,
             }
-        }
+        },
     }
 </script>
 
