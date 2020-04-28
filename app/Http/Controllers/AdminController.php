@@ -26,14 +26,17 @@ class AdminController extends Controller
 
     public function category_edit($id)
     {
-        $categories = Category::all();
-        $category = $categories->where('id', $id)->first();
+        if (request()->ajax()) {
+            $categories = Category::all();
+            $category = $categories->where('id', $id)->first();
 
-        $data = [
-            "categories" => $categories,
-            "category" => $category,
-        ];
+            $data = [
+                "categories" => $categories,
+                "category" => $category,
+            ];
 
-        return response()->json($data);
+            return response()->json($data);
+        }
+        return abort(401, "No puedes ver este contenido");
     }
 }
