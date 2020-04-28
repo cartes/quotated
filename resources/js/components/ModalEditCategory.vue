@@ -23,6 +23,12 @@
                 >
                     <b-form-select v-model="selected" :options="parentOptions"></b-form-select>
                 </b-form-group>
+                <b-form-group
+                    :state="nameState"
+                    label="Orden"
+                >
+
+                </b-form-group>
             </form>
         </b-modal>
     </div>

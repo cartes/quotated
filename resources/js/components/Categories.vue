@@ -50,6 +50,7 @@
                     categories: {
                         title: null,
                         id: null,
+                        order: 0,
                     }
                 },
                 url: this.route,
