@@ -29,10 +29,10 @@ Vue.use(ServerTable, {}, false, 'bootstrap4', 'default');
 import VueResource from "vue-resource";
 Vue.use(VueResource);
 
-import Categories from "./components/Categories";
+import Categories from "./components/category/Categories";
 Vue.component("categories-list", Categories);
 
-import ModalEditCategory from "./components/ModalEditCategory";
+import ModalEditCategory from "./components/category/ModalEditCategory";
 Vue.component("modal-category", ModalEditCategory);
 
 /**
