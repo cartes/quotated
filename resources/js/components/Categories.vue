@@ -6,6 +6,8 @@
         <ModalEditCategory :id="id"
                            :category="category"
                            :parentOptions="parentOptions"
+                           :route="store"
+                           @saved="refreshTable"
         >
         </ModalEditCategory>
         <v-server-table ref="table" :columns="columns" :url="url" :options="options">
@@ -43,6 +45,7 @@
                 status: null,
                 parentOptions: [{value: null, text: "Sin categoría superior"}],
                 id: 0,
+                store: '',
                 category: {
                     category: {
                         title: null,
@@ -85,6 +88,7 @@
             callEdit(id) {
                 this.id = id;
                 let url = "/admin/category/" + id + "/edit";
+                this.store = "/admin/category/" + id + "/store";
                 axios.get(url)
                     .then(response => {
                         this.category = response.data;
@@ -100,6 +104,11 @@
                     .catch(e => {
                         console.log(e);
                     });
+            },
+            refreshTable(saved) {
+                if (saved) {
+                    this.$refs.table.refresh();
+                }
             }
         }
     }

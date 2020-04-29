@@ -39,4 +39,19 @@ class AdminController extends Controller
         }
         return abort(401, "No puedes ver este contenido");
     }
+
+    public function categoryStore() {
+        if (request()->ajax()) {
+            $category = Category::find(\request('id'));
+            $category->title = \request('title');
+            $category->order = \request('order');
+            $category->cat_parent = \request('cat_parent');
+
+            $category->save();
+            return response()->json(['msg' => 'ok']);
+        }
+
+        return abort(401, 'No puedes estar en esta zona');
+
+    }
 }
