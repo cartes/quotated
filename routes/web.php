@@ -32,7 +32,9 @@ Route::get('/images/{path}/{attachment}', function ($path, $attachment) {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \App\Role::ADMIN)]], function () {
    Route::get('/categories', "AdminController@categories")->name('category.admin');
+   Route::get('categories/parent', "AdminController@categoryParent")->name('category.parent');
    Route::get('/categories_json', "AdminController@categoriesJSON")->name("admin.categories_json");
    Route::get('/category/{id}/edit/', 'AdminController@category_edit')->name('admin.category.edit');
    Route::post('/category/{id}/store/', 'AdminController@categoryStore')->name('admin.category.store');
+   Route::post('/create/category/', "AdminController@category_create")->name('admin.category.store');
 });

@@ -3,6 +3,16 @@
         <div class="alert alert-primary text-center" v-if="processing">
             <i class="fa fa-compass"></i> Procesando información...
         </div>
+        <div class="add-category row">
+            <div class="col-3">
+                <button class="btn btn-primary" @click="callAdd">
+                    <i class="fa fa-plus-circle fa-lg"></i> Agregar Categoría
+                </button>
+            </div>
+        </div>
+        <modal-add-category :parentOptions="parentOptions" @saved="refreshTable">
+
+        </modal-add-category>
         <ModalEditCategory :id="id"
                            :category="category"
                            :parentOptions="parentOptions"
@@ -26,6 +36,7 @@
 <script>
     import {Event} from "vue-tables-2";
     import ModalEditCategory from "./ModalEditCategory";
+    import ModalAddCategory from "./ModalAddCategory";
 
     export default {
         name: "Categories",
@@ -71,9 +82,9 @@
                     },
                     sorteable: ['id', 'title', 'order'],
                     filterable: ['title'],
-                    requestFunction: function (data) {
+                    requestFunction: data => {
                         return window.axios.get(this.url, {
-                            params: data
+                            params: data,
                         }).catch(function (e) {
                             console.log(e);
                         }.bind(this))
@@ -82,6 +93,7 @@
             }
         },
         components: {
+            ModalAddCategory,
             ModalEditCategory
         },
         methods: {
@@ -105,10 +117,26 @@
                         console.log(e);
                     });
             },
+            callAdd() {
+                axios.get("/admin/categories/parent")
+                    .then(response => {
+                        this.category = response.data;
+                        this.parentOptions = [{value: null, text: "Sin categoría superior"}];
+                        this.category.category.forEach((item) => {
+                            this.parentOptions.push({
+                                value: item.id,
+                                text: item.title,
+                            })
+                        });
+                        this.$bvModal.show('categoryAdd');
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+            },
             refreshTable(saved) {
-                if (saved) {
-                    this.$refs.table.refresh();
-                }
+                console.log(saved);
+                this.$refs.table.refresh();
             }
         }
     }

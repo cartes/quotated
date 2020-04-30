@@ -1,40 +1,30 @@
 <template>
     <div>
-        <b-modal hide-footer id="categoryEdit">
+        <b-modal hide-footer id="categoryAdd">
             <template v-slot:modal-title>
-                Editando Categoría: {{category.category.title}} | ID: {{category.category.id}}
+                Agregar Categoría
             </template>
-            <b-form ref="form" class="form" @submit.stop.prevent @submit="handleSubmit">
+            <b-form class="form" @submit.stop.prevent @submit="createSubmit">
                 <b-form-group
                     :state="nameState"
                     label="Nombre de la Categoría"
-                    invalid-feedback="Nombre obligatorio"
+                    invalid-feedback="Nombre Obligatorio"
                 >
                     <b-form-input
                         id="title"
-                        v-model="category.category.title"
                         required
                     ></b-form-input>
                 </b-form-group>
                 <b-form-group
-                    :state="nameState"
                     label="Categoría Superior"
                 >
-                    <b-form-select id="cat_parent" v-model="category.category.cat_parent" :options="parentOptions"></b-form-select>
+                    <b-form-select id="cat_parent" v-model="selected" :options="parentOptions"></b-form-select>
                 </b-form-group>
                 <b-form-group
-                    :state="nameState"
                     label="Orden"
-                    invalid-feedback="Orden es obligatorio"
+                    required
                 >
-                    <b-form-input
-                        id="order"
-                        v-model="category.category.order"
-                        :state="nameState"
-                        rquired
-                    >
-
-                    </b-form-input>
+                    <b-form-input id="order" v-model="Orden"></b-form-input>
                 </b-form-group>
                 <b-form-group>
                     <b-button type="submit" variant="primary">Enviar</b-button>
@@ -48,38 +38,28 @@
     import Categories from "./Categories";
 
     export default {
-        name: "ModalEditCategory",
+        name: "ModalAddCategory",
         props: {
-            id: {
-                type: Number,
-            },
-            category: {
-                type: Object,
-                required: false
-            },
             parentOptions: {
                 type: Array,
                 required: true,
             },
-            route: {
-                type: String,
-                required: true
-            }
+
         },
         components: {
             Categories
         },
-        computed: {},
         data() {
             return {
-                selected: null,
                 nameState: null,
+                selected: null,
+                Orden: 0,
             }
         },
         methods: {
-            handleSubmit(e) {
+            createSubmit(e) {
                 e.preventDefault();
-                axios.post(this.route,
+                axios.post('/admin/create/category',
                     {
                         title: title.value,
                         cat_parent: cat_parent.value,
@@ -87,14 +67,14 @@
                     },
                     {
                         headers: {
-                            "x-csrf-token": document.head.querySelector('meta[name=csrf-token]').content
+                            "x-csrf-token": document.head.querySelector("meta[name=csrf-token]").content
                         }
                     }
                 ).then(response => {
-                    this.$bvModal.hide('categoryEdit');
+                    this.$bvModal.hide("categoryAdd");
                     this.$emit('saved', true);
-                }).catch(error => {
-                    console.log(error);
+                }).catch(e => {
+                    console.log(e);
                 });
             }
         }

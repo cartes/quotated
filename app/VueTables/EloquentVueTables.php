@@ -15,8 +15,8 @@ class EloquentVueTables implements VueTablesInterface
         $query = json_decode(request('query'), true);
         $data = $model->select($fields)->with($relations);
 
-        if (request('status')) {
-            $data->where('status', request('status'));
+        if (request('cat_parent')) {
+            $data->where('cat_parent', request('cat_parent'));
         }
 
         if (isset($query) && $query) {
