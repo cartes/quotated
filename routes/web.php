@@ -37,4 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \
    Route::get('/category/{id}/edit/', 'AdminController@category_edit')->name('admin.category.edit');
    Route::post('/category/{id}/store/', 'AdminController@categoryStore')->name('admin.category.store');
    Route::post('/create/category/', "AdminController@category_create")->name('admin.category.store');
+   Route::get('/users', "AdminController@users")->name('user.admin');
+   Route::get('/users_json', "AdminController@usersJson")->name('admin.users_json');
+   Route::post('/user/{id}/block', "AdminController@userBlock")->name("admin.user.block");
 });

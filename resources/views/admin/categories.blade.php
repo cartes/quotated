@@ -1,11 +1,12 @@
 @extends("layouts.app")
 
 @section('content')
-    <div class="px-5">
-        <h1>Administrar Categorias</h1>
+    <div class="container">
+        <div class="py-3">
+            <h1>Administrar Categorias</h1>
 
-        <categories-list
-                :labels="{{ json_encode([
+            <categories-list
+                    :labels="{{ json_encode([
                     'id' => __("ID"),
                     'title' => __("Titulo"),
                     'cat_parent' => __('Categoria Superior'),
@@ -13,9 +14,10 @@
                     'order' => __("Orden"),
                     'edit' => __('Editar'),
                 ]) }}"
-                route="{{ route("admin.categories_json") }}"
-        >
+                    route="{{ route("admin.categories_json") }}"
+            >
 
-        </categories-list>
+            </categories-list>
+        </div>
     </div>
 @endsection

@@ -32,8 +32,8 @@ Vue.use(VueResource);
 import Categories from "./components/category/Categories";
 Vue.component("categories-list", Categories);
 
-import ModalEditCategory from "./components/category/ModalEditCategory";
-Vue.component("modal-category", ModalEditCategory);
+import Users from "./components/user/users";
+Vue.component("users-list", Users);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

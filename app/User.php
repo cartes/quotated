@@ -56,6 +56,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @property-read \App\Status $status
  */
 class User extends Authenticatable
 {
@@ -101,6 +102,11 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function status()
+    {
+        return $this->morphOne(Status::class, 'statuable');
     }
 
     public function role()

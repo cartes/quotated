@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Status;
+use App\User;
 use App\VueTables\EloquentVueTables;
 use Illuminate\Http\Request;
 
@@ -76,6 +78,37 @@ class AdminController extends Controller
             return response()->json($data);
         }
 
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function users()
+    {
+        return view("admin.users");
+    }
+
+    public function usersJson()
+    {
+        if (\request()->ajax()) {
+            $vuetables = new EloquentVueTables();
+            $data = $vuetables->get(new User(), ['id', 'name', 'surname', 'email', 'birthday', 'phone'], ['status']);
+
+            return response()->json($data);
+        }
+
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function userBlock($id)
+    {
+        if (\request()->ajax()) {
+            Status::updateOrCreate(['statuable_id' => $id], [
+                'statuable_id' => $id,
+                'statuable_type' => 'App\User',
+                'status' => '3',
+            ]);
+
+            return response()->json(['msg' => 'ok']);
+        }
         return abort(401, "No puedes estar en esta zona");
     }
 }

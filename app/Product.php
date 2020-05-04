@@ -74,6 +74,11 @@ class Product extends Model
         return $this->morphMany(Review::class, 'reviewable');
     }
 
+    public function status()
+    {
+        return $this->morphOne(Status::class, 'statuable');
+    }
+
     public function seller()
     {
         return $this->belongsTo(Seller::class);

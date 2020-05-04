@@ -2360,6 +2360,98 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/users.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/users.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_tables_2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-tables-2 */ "./node_modules/vue-tables-2/compiled/index.js");
+/* harmony import */ var vue_tables_2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_tables_2__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "users",
+  props: {
+    labels: {
+      type: Object,
+      required: true
+    },
+    route: {
+      type: String,
+      required: true
+    },
+    sessionId: {
+      type: String
+    }
+  },
+  data: function data() {
+    var _this = this;
+
+    return {
+      url: this.route,
+      columns: ['id', 'name', 'surname', 'email', 'birthday', 'phone', 'status', 'edit'],
+      options: {
+        filterByColumn: true,
+        perPage: 10,
+        perPageValues: [10, 25, 50, 100, 500],
+        filterable: ['name', 'email'],
+        headings: {
+          id: 'ID',
+          name: this.labels.name,
+          surname: this.labels.surname,
+          email: this.labels.email,
+          birthday: this.labels.birthday,
+          phone: this.labels.phone,
+          status: this.labels.status,
+          edit: ""
+        },
+        requestFunction: function requestFunction(data) {
+          return window.axios.get(_this.url, {
+            params: data
+          })["catch"](function (e) {
+            console.log(e);
+          }.bind(_this));
+        }
+      }
+    };
+  },
+  methods: {
+    blockUser: function blockUser(id) {
+      var url = "/admin/user/" + id + "/block";
+      axios.post(url).then(function (response) {
+        console.log(response);
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/base64-js/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
@@ -82499,6 +82591,80 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/users.vue?vue&type=template&id=6c45d94f&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/users.vue?vue&type=template&id=6c45d94f&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("v-server-table", {
+        ref: "table",
+        attrs: { columns: _vm.columns, url: _vm.url, options: _vm.options },
+        scopedSlots: _vm._u([
+          {
+            key: "edit",
+            fn: function(props) {
+              return _c("div", {}, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("\n                Editar\n            ")]
+                ),
+                _vm._v(" "),
+                _vm.sessionId != props.row.id
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-block",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.blockUser(props.row.id)
+                          }
+                        }
+                      },
+                      [_vm._v("\n                Bloquear\n            ")]
+                    )
+                  : _vm._e()
+              ])
+            }
+          },
+          {
+            key: "status",
+            fn: function(props) {
+              return _c("div", {}, [
+                _c("div", [_vm._v(_vm._s(props.row.status))])
+              ])
+            }
+          }
+        ])
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -82573,7 +82739,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -86406,6 +86577,7 @@ var _default = {
   inject: ['colspan', 'scopedSlots', 'getChildRowTemplate', 'opts', 'componentsOverride'],
   render: function render(h) {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       childRow: this.getChildRowTemplate(h, this.row, this.index, this.scopedSlots()['child_row']),
       colspan: this.colspan(),
       "class": this.opts().rowClassCallback ? this.opts().rowClassCallback(this.row) : '',
@@ -86434,9 +86606,10 @@ exports["default"] = void 0;
 var _default = {
   name: 'RLChildRowToggler',
   props: ['rowId'],
-  inject: ['toggleChildRow', 'childRowTogglerClass', 'componentsOverride', 'tabIndex'],
+  inject: ['toggleChildRow', 'opts', 'childRowTogglerClass', 'componentsOverride', 'tabIndex'],
   render: function render(h) {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       "class": this.childRowTogglerClass.bind(this, this.rowId),
       toggle: this.toggleChildRow.bind(this, this.rowId),
       override: this.componentsOverride.childRowToggler,
@@ -86464,9 +86637,10 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _default = {
   name: 'RLColumnsDropdown',
-  inject: ['getHeading', 'display', 'theme', 'allColumns', 'onlyColumn', 'toggleColumn', 'toggleColumnsDropdown', 'displayColumnsDropdown', 'origColumns', 'componentsOverride'],
+  inject: ['getHeading', 'display', 'opts', 'theme', 'allColumns', 'onlyColumn', 'toggleColumn', 'toggleColumnsDropdown', 'displayColumnsDropdown', 'origColumns', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       theme: this.theme,
       getHeading: this.getHeading,
       display: this.display,
@@ -86524,10 +86698,11 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _default = {
   name: 'RLDateFilter',
-  inject: ['getHeading', 'display', 'componentsOverride'],
+  inject: ['getHeading', 'display', 'componentsOverride', 'opts'],
   props: ['column'],
   render: function render(h) {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       column: this.column,
       placeholder: this.display('filterBy', {
         column: this.getHeading(this.column)
@@ -86557,9 +86732,10 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _default = {
   name: "RLDropdownPagination",
-  inject: ['limit', 'count', 'theme', 'page', 'setPage', 'totalPages', 'componentsOverride', 'id'],
+  inject: ['limit', 'count', 'theme', 'page', 'setPage', 'totalPages', 'componentsOverride', 'id', 'opts'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       name: this.id,
       setPage: this.setPage,
       page: this.page(),
@@ -86594,10 +86770,10 @@ var _default = {
   inject: ['opts', 'theme', 'allColumns', 'filterable', 'filterType', 'slots', 'columnClass', 'hasChildRow', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       columns: this.allColumns(),
       filterable: this.filterable,
       filterType: this.filterType,
-      opts: this.opts(),
       slots: this.slots(),
       columnClass: this.columnClass,
       hasChildRow: this.hasChildRow(),
@@ -86628,6 +86804,7 @@ var _default = {
   inject: ['opts', 'theme', 'source', 'search', 'query', 'display', 'id', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       theme: this.theme,
       search: this.search,
       query: this.query(),
@@ -86661,6 +86838,7 @@ var _default = {
   inject: ['colspan', 'opts', 'theme', 'toggleGroupDirection', 'toggleGroup', 'groupToggleIcon', 'getGroupSlot', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       theme: this.theme,
       colspan: this.colspan(),
       toggleGroupDirection: this.toggleGroupDirection,
@@ -86696,6 +86874,7 @@ var _default = {
   inject: ['opts', 'theme', 'hasChildRow', 'allColumns'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       columns: this.allColumns(),
       hasChildRow: this.hasChildRow,
       childRowTogglerFirst: this.hasChildRow() && this.opts().showChildRowToggler && this.opts().childRowTogglerFirst,
@@ -86727,6 +86906,7 @@ var _default = {
   props: ['column'],
   render: function render(h) {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       theme: this.theme,
       search: this.search,
       query: this.query(),
@@ -86765,9 +86945,10 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _default = {
   name: 'RLNoResultsRow',
-  inject: ['colspan', 'display', 'componentsOverride', 'loading', 'tabIndex'],
+  inject: ['colspan', 'display', 'componentsOverride', 'loading', 'tabIndex', 'opts'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       colspan: this.colspan(),
       display: this.display,
       tabIndex: this.tabIndex(),
@@ -86804,6 +86985,7 @@ var _default = {
   inject: ['opts', 'count', 'limit', 'vuex', 'name', 'id', 'theme', 'page', 'setPage', 'totalPages', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       setPage: this.setPage,
       options: this.opts().pagination,
       infiniteScroll: this.opts().infiniteScroll,
@@ -86859,6 +87041,7 @@ var _default = {
     var _this = this;
 
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       perPageValues: this.perPageValues(),
       theme: this.theme,
       limit: this.limit(),
@@ -86900,9 +87083,10 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _default = {
   name: 'RLSortControl',
-  inject: ['column', 'theme', 'sortable', 'hasMultiSort', 'orderBy', 'userMultiSorting', 'sortableChevronClass', 'componentsOverride'],
+  inject: ['opts', 'column', 'theme', 'sortable', 'hasMultiSort', 'orderBy', 'userMultiSorting', 'sortableChevronClass', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       sortable: this.sortable(this.column),
       "class": "VueTables__sort-icon ".concat(this.theme.right, " ").concat(this.sortableChevronClass(this.column)),
       sortStatus: this.sortStatus,
@@ -86967,6 +87151,7 @@ var _default = {
   inject: ['opts', 'theme', 'colspan', 'slots', 'componentsOverride'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       tableAttrs: {
         summary: this.opts().summary,
         "class": "VueTables__table ".concat(this.opts().skin ? this.opts().skin : this.theme.table)
@@ -87001,6 +87186,7 @@ var _default = {
   inject: ['opts', 'theme', 'source', 'filteredData', 'tableData', 'colspan', 'openChildRows', 'collapsedGroups', 'scopedSlots', 'slots', 'componentsOverride', 'page', 'limit'],
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       source: this.source,
       canToggleGroups: this.opts().toggleGroups,
       collapsedGroups: this.collapsedGroups(),
@@ -87046,6 +87232,7 @@ var _default = {
   props: ['column'],
   render: function render(h) {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       row: this.Row,
       content: this.content(h),
       classes: "".concat(this.columnClass(this.column), " ").concat(this.cellClasses(this.column, this.Row)).trim(),
@@ -87170,6 +87357,7 @@ var _default = {
     var _this = this;
 
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       thAttrs: {
         "class": this.sortableClass(this.column),
         tabIndex: this.tabIndex(),
@@ -87229,9 +87417,9 @@ var _default = {
   },
   render: function render() {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       columns: this.allColumns(),
       hasChildRow: this.hasChildRow(),
-      opts: this.opts(),
       rowId: this.row[this.opts().uniqueKey],
       rowAttrs: {
         "class": this.opts().rowClassCallback ? this.opts().rowClassCallback(this.row) : '',
@@ -87271,6 +87459,7 @@ var _default = {
   props: ['column'],
   render: function render(h) {
     return this.$scopedSlots["default"]({
+      opts: this.opts(),
       column: this.column,
       debounce: this.opts().debounce,
       theme: this.theme,
@@ -103511,7 +103700,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_tables_2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_tables_2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
 /* harmony import */ var _components_category_Categories__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/category/Categories */ "./resources/js/components/category/Categories.vue");
-/* harmony import */ var _components_category_ModalEditCategory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/category/ModalEditCategory */ "./resources/js/components/category/ModalEditCategory.vue");
+/* harmony import */ var _components_user_users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/user/users */ "./resources/js/components/user/users.vue");
 /**
 * First we will load all of this project's JavaScript dependencies which
 * includes Vue and other libraries. It is a great starting point when
@@ -103540,7 +103729,7 @@ Vue.use(vue_resource__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 Vue.component("categories-list", _components_category_Categories__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
-Vue.component("modal-category", _components_category_ModalEditCategory__WEBPACK_IMPORTED_MODULE_4__["default"]);
+Vue.component("users-list", _components_user_users__WEBPACK_IMPORTED_MODULE_4__["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -103602,15 +103791,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*********************************************************!*\
   !*** ./resources/js/components/category/Categories.vue ***!
   \*********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Categories_vue_vue_type_template_id_54799372_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Categories.vue?vue&type=template&id=54799372&scoped=true& */ "./resources/js/components/category/Categories.vue?vue&type=template&id=54799372&scoped=true&");
 /* harmony import */ var _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Categories.vue?vue&type=script&lang=js& */ "./resources/js/components/category/Categories.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -103640,7 +103828,7 @@ component.options.__file = "resources/js/components/category/Categories.vue"
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/category/Categories.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -103801,6 +103989,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditCategory_vue_vue_type_template_id_61ac4e0f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditCategory_vue_vue_type_template_id_61ac4e0f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user/users.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/user/users.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _users_vue_vue_type_template_id_6c45d94f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users.vue?vue&type=template&id=6c45d94f&scoped=true& */ "./resources/js/components/user/users.vue?vue&type=template&id=6c45d94f&scoped=true&");
+/* harmony import */ var _users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users.vue?vue&type=script&lang=js& */ "./resources/js/components/user/users.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _users_vue_vue_type_template_id_6c45d94f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _users_vue_vue_type_template_id_6c45d94f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "6c45d94f",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user/users.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user/users.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/user/users.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./users.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/users.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user/users.vue?vue&type=template&id=6c45d94f&scoped=true&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/user/users.vue?vue&type=template&id=6c45d94f&scoped=true& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_template_id_6c45d94f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./users.vue?vue&type=template&id=6c45d94f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/users.vue?vue&type=template&id=6c45d94f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_template_id_6c45d94f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_template_id_6c45d94f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
