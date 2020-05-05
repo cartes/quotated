@@ -40,4 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \
    Route::get('/users', "AdminController@users")->name('user.admin');
    Route::get('/users_json', "AdminController@usersJson")->name('admin.users_json');
    Route::post('/user/{id}/block', "AdminController@userBlock")->name("admin.user.block");
+   Route::post('/user/{id}/unblock', "AdminController@userUnblock")->name("admin.user.unblock");
+   Route::get('/user/{id}/get', "AdminController@getUser")->name("admin.user.get");
+   Route::post('/user/{id}/store', "AdminController@storeUser")->name("admin.user.get");
 });

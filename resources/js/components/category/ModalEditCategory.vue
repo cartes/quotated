@@ -69,7 +69,6 @@
         components: {
             Categories
         },
-        computed: {},
         data() {
             return {
                 selected: null,

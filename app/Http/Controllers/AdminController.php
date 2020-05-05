@@ -111,4 +111,44 @@ class AdminController extends Controller
         }
         return abort(401, "No puedes estar en esta zona");
     }
+
+    public function userUnblock($id)
+    {
+        if (\request()->ajax()) {
+            Status::where('statuable_id', '=', $id)
+                ->where('statuable_type', '=', "App\User")
+                ->update(['status' => '1']);
+
+            return response()->json(['msg' => 'ok']);
+
+        }
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function getUser($id)
+    {
+        if (\request()->ajax()) {
+            $data = User::whereId($id)->first();
+
+            return response()->json($data);
+        }
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function storeUser($id)
+    {
+        if (\request()->ajax()) {
+            $user = User::find($id);
+
+            $user->name = \request('firstName');
+            $user->surname = \request('surname');
+            $user->email = \request('email');
+            $user->birthday = \request('birthday');
+            $user->phone = \request('phone');
+
+            $user->save();
+            return response()->json(['msg' => 'ok']);
+        }
+        return abort(401, "No puedes estar en esta zona");
+    }
 }
