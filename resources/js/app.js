@@ -35,6 +35,9 @@ Vue.component("categories-list", Categories);
 import Users from "./components/user/users";
 Vue.component("users-list", Users);
 
+import Ads from "./components/ads/ads";
+Vue.component("ads-list", Ads);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

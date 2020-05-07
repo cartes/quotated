@@ -36,7 +36,18 @@
                         <div class="collapse navbar-collapse" id="navBar-menu">
                             <!-- lefty side menu -->
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item"><a href="#" class="nav-link">Categorias</a></li>
+                                <li class="nav-item dropdown mr-3">
+                                    <a href="#" id="categoryDropdown" class="nav-link dropdown-toggle"
+                                       data-toggle="dropdown" aria-labelledby="categoryDropdown" aria-expanded="false">
+                                        Categorias
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                        @foreach($categories as $cat)
+                                        <a class="dropdown-item" href="#">{{ $cat->title }}</a>
+                                        @endforeach
+                                    </div>
+                                </li>
                                 <li class="nav-item"><a href="#" class="btn btn-outline-light nav-link">Vender</a></li>
                             </ul>
 

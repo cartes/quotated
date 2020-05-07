@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Product::class, function (Faker $faker) {
     $name = $faker->sentence;
-    $status = $faker->randomElement([Product::PUBLISHED, Product::REJECTED, Product::PENDING]);
     return [
         'seller_id' => \App\Seller::all()->random()->id,
         'category_id' => \App\Category::all()->random()->id,

@@ -1,5 +1,6 @@
 <li class="nav-item"><a class="nav-link" href="{{ route('category.admin') }}">Administrar categorias</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ route('user.admin') }}">Administrar usuarios</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ route('ads.admin') }}">Administrar avisos</a></li>
 <li class="nav-item">
     <a class="nav-link" href="{{ route('logout') }}"
        onclick="event.preventDefault();

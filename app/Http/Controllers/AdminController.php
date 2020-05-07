@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use App\Status;
 use App\User;
 use App\VueTables\EloquentVueTables;
@@ -101,7 +102,7 @@ class AdminController extends Controller
     public function userBlock($id)
     {
         if (\request()->ajax()) {
-            Status::updateOrCreate(['statuable_id' => $id], [
+            Status::updateOrCreate(['statuable_id' => $id, 'statuable_type' => 'App\User'], [
                 'statuable_id' => $id,
                 'statuable_type' => 'App\User',
                 'status' => '3',
@@ -117,7 +118,7 @@ class AdminController extends Controller
         if (\request()->ajax()) {
             Status::where('statuable_id', '=', $id)
                 ->where('statuable_type', '=', "App\User")
-                ->update(['status' => '1']);
+                ->update(['status' => Status::ACTIVE]);
 
             return response()->json(['msg' => 'ok']);
 
@@ -147,6 +148,48 @@ class AdminController extends Controller
             $user->phone = \request('phone');
 
             $user->save();
+            return response()->json(['msg' => 'ok']);
+        }
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function ads()
+    {
+        return view("admin.ads");
+    }
+
+    public function adsJson()
+    {
+        if (\request()->ajax()) {
+            $vuetables = new EloquentVueTables();
+            $data = $vuetables->get(new Product(), ['id', 'seller_id', 'title', 'description', 'created_at', 'price'], ['status', 'seller'], ['status']);
+
+            return response()->json($data);
+        }
+
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function adActivate($id)
+    {
+        if (\request()->ajax()) {
+            Status::updateOrCreate(
+                ['statuable_id' => $id, 'statuable_type' => 'App\Product'],
+                ['status' => Status::ACTIVE, 'statuable_type' => 'App\Product', 'statuable_id' => $id]
+            );
+
+            return response()->json(['msg' => 'ok']);
+        }
+
+        return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function adDeactivate($id)
+    {
+        if (\request()->ajax()) {
+            Status::where('statuable_id', '=', $id)
+                ->where('statuable_type', '=', 'App\Product')
+                ->update(['status' => Status::INACTIVE]);
             return response()->json(['msg' => 'ok']);
         }
         return abort(401, "No puedes estar en esta zona");

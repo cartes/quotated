@@ -14,9 +14,7 @@ use Intervention\Image\Facades\Image;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "HomeController@index");
 
 Auth::routes();
 
@@ -43,4 +41,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \
    Route::post('/user/{id}/unblock', "AdminController@userUnblock")->name("admin.user.unblock");
    Route::get('/user/{id}/get', "AdminController@getUser")->name("admin.user.get");
    Route::post('/user/{id}/store', "AdminController@storeUser")->name("admin.user.get");
+   Route::get('/ads', "AdminController@ads")->name('ads.admin');
+   Route::get('/ads_json', "AdminController@adsJson")->name('admin.ads_json');
+   Route::post('/ad/{id}/activate', "AdminController@adActivate")->name('ad.activate');
+   Route::post('/ad/{id}/deactivate', "AdminController@adDeactivate")->name('ad.deactivate');
 });

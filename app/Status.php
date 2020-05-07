@@ -31,6 +31,7 @@ class Status extends Model
     const ACTIVE = 1;
     const INACTIVE = 2;
     const BANNED = 3;
+    const INFORMED = 4;
 
     protected $fillable = ['status', 'statuable_id', 'statuable_type'];
 
