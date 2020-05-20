@@ -38,6 +38,9 @@ Vue.component("users-list", Users);
 import Ads from "./components/ads/ads";
 Vue.component("ads-list", Ads);
 
+import formProducts from "./components/products/formProducts";
+Vue.component("form-products", formProducts);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

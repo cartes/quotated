@@ -63,6 +63,10 @@ class Product extends Model
     const PENDING = 2;
     const REJECTED = 3;
 
+    const NEW = 1;
+    const USED = 2;
+    const REFURBIHED = 3;
+
 
     public function images()
     {

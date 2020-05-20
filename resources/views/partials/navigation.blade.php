@@ -11,9 +11,11 @@
                     <form method="post" class="form">
                         <div class="form-group">
                             <div class="input-group">
-                                <input name="search" type="text" class="form-control" placeholder="Buscar productos" aria-label="Buscar productos">
+                                <input name="search" type="text" class="form-control" placeholder="Buscar productos"
+                                       aria-label="Buscar productos">
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+                                    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -44,11 +46,12 @@
 
                                     <div class="dropdown-menu" aria-labelledby="categoryDropdown">
                                         @foreach($categories as $cat)
-                                        <a class="dropdown-item" href="#">{{ $cat->title }}</a>
+                                            <a class="dropdown-item" href="#">{{ $cat->title }}</a>
                                         @endforeach
                                     </div>
                                 </li>
-                                <li class="nav-item"><a href="#" class="btn btn-outline-light nav-link">Vender</a></li>
+                                <li class="nav-item"><a href="{{ route("product.create") }}"
+                                                        class="btn btn-outline-light nav-link">Vender</a></li>
                             </ul>
 
                             <!-- righty sida bar -->

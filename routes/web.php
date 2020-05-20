@@ -15,6 +15,8 @@ use Intervention\Image\Facades\Image;
 */
 
 Route::get('/', "HomeController@index");
+Route::get('login', "LoginController@showLoginForm")->name('login');
+Route::get('register', "Auth\RegisterController@showRegistrationForm")->name('register');
 
 Auth::routes();
 
@@ -26,6 +28,12 @@ Route::get('/images/{path}/{attachment}', function ($path, $attachment) {
     if (File::exists($file)){
         return Image::make($file)->response();
     }
+});
+
+Route::group(['prefix' => 'product', 'middleware' => ['auth', sprintf("role:%s,%s", \App\Role::USER, \App\Role::ADMIN)]], function() {
+    Route::get('/create', "ProductController@create")->name("product.create");
+    Route::get('/category/{id}/children', 'ProductController@getCategoryChildren')->name("product.category.children");
+    Route::get('/category/{id}/name', "ProductController@getCategoryName")->name("product.category.name");
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \App\Role::ADMIN)]], function () {

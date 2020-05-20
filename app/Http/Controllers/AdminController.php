@@ -13,7 +13,8 @@ class AdminController extends Controller
 {
     public function categories()
     {
-        return view("admin.categories");
+        $categories = Category::where('cat_parent', '=', null);
+        return view("admin.categories")->with('categories', $categories);
     }
 
     public function categoriesJSON()
