@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Category
@@ -48,5 +49,11 @@ class Category extends Model
     public function parent()
     {
         return $this->belongsTo(self::class, 'cat_parent');
+    }
+
+    public function getSlugNameAttribute() {
+        $slug = Str::slug($this->attributes['title']);
+
+        return $slug;
     }
 }

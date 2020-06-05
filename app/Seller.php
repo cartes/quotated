@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class Seller extends Model
 {
     protected $fillable = [
-        'title'
+        'title', 'user_id'
     ];
 
     public function products()

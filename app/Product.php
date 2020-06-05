@@ -56,7 +56,7 @@ class Product extends Model
     use DatesTranslator;
 
     protected $fillable = [
-        'seller_id', 'category_id', 'buyer_id', 'title', 'description', 'price'
+        'seller_id', 'category_id', 'slug', 'buyer_id', 'title', 'description', 'price'
     ];
 
     const PUBLISHED = 1;
@@ -118,6 +118,22 @@ class Product extends Model
         $created = $this->attributes['created_at'];
         $exp = Carbon::parse($created)->addDays(30)->isoFormat('dddd, D \\d\\e MMMM \\d\\e Y');
         return $exp;
+    }
+
+    public function getConditionNameAttribute()
+    {
+        $condition = $this->attributes['condition'];
+
+        switch ($condition) {
+            case self::NEW :
+                return "Nuevo";
+                break;
+            case self::USED :
+                return "Usado";
+                break;
+        }
+
+        return null;
     }
 
     public function getCurrencyAttribute()

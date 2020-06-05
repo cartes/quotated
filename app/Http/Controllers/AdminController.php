@@ -85,7 +85,8 @@ class AdminController extends Controller
 
     public function users()
     {
-        return view("admin.users");
+        $categories = Category::where('cat_parent', '=', null)->get();
+        return view("admin.users")->with('categories', $categories);
     }
 
     public function usersJson()
@@ -156,7 +157,8 @@ class AdminController extends Controller
 
     public function ads()
     {
-        return view("admin.ads");
+        $categories = Category::where('cat_parent', '=', null)->get();
+        return view("admin.ads")->with('categories', $categories);
     }
 
     public function adsJson()

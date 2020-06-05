@@ -33,7 +33,7 @@ class Image extends Model
 {
     public function pathProduct()
     {
-        return env('APP_URL') . '/images/products/' . $this->path;
+        return env('APP_URL') . '/imgprod/products/' . $this->path;
     }
 
     public function pathUser()

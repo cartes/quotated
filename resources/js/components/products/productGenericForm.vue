@@ -2,7 +2,7 @@
     <div>
         <h2>Agregar producto a {{this.catTitle}}</h2>
 
-        <b-form class="form" @submit.prevent="onSubmit">
+        <b-form class="form" enctype="multipart/form-data" @submit.prevent="onSubmit">
             <div class="row">
                 <b-form-group
                         class="col-md-4"
@@ -65,7 +65,7 @@
             </b-form-group>
 
             <b-form-group>
-                <b-button type="submit" v-bind:disabled="this.boton" variant="primary">Enviar</b-button>
+                <b-button type="submit" v-bind:disabled="this.boton" variant="primary">{{ isPosting ? 'Enviando...' : 'Enviar' }}</b-button>
             </b-form-group>
         </b-form>
     </div>
@@ -115,6 +115,7 @@
                 catTitle: '',
                 boton: false,
                 images: [],
+                isPosting: false,
             }
         },
         mounted() {
@@ -127,8 +128,30 @@
                     this.catTitle = res.data.title;
                 });
             },
-            onSubmit() {
-                console.log(this.images);
+            onSubmit(e) {
+                this.isPosting = true;
+                let formData = new FormData();
+                formData.append('title', this.form.title);
+                formData.append('catId', this.catId);
+                formData.append('price', this.form.price);
+                formData.append('condition', this.form.condition);
+                formData.append('description', this.form.description);
+
+                $.each(this.form.files, function (key,image) {
+                    formData.append(`picture[${key}]`, image);
+                });
+
+                axios.post("/product/store", formData, {
+                        headers: {
+                            "x-csrf-token": document.head.querySelector("meta[name=csrf-token]").content
+                        }
+                    }
+                ).then(response => {
+                    this.isPosting = false;
+                    console.log(response.data);
+                }).catch(error => {
+                    console.log(error);
+                });
             },
             onImageChange(e) {
                 let files = e.target.files || e.dataTransfer.files;

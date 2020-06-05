@@ -30,10 +30,23 @@ Route::get('/images/{path}/{attachment}', function ($path, $attachment) {
     }
 });
 
+Route::get('/imgprod/{path}/{id}/{attachment?}', function ($path, $id, $attachment = null) {
+    if ($attachment) {
+        $file = sprintf('storage/%s/%s/%s', $path, $id, $attachment);
+    } else {
+        $file = sprintf('storage/%s/%s', $path, $id);
+    }
+
+    if (File::exists($file)) {
+        return Image::make($file)->response();
+    }
+});
+
 Route::group(['prefix' => 'product', 'middleware' => ['auth', sprintf("role:%s,%s", \App\Role::USER, \App\Role::ADMIN)]], function() {
     Route::get('/create', "ProductController@create")->name("product.create");
     Route::get('/category/{id}/children', 'ProductController@getCategoryChildren')->name("product.category.children");
     Route::get('/category/{id}/name', "ProductController@getCategoryName")->name("product.category.name");
+    Route::post('/store', "ProductController@store")->name("product.store");
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \App\Role::ADMIN)]], function () {
@@ -53,4 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', sprintf("role:%s", \
    Route::get('/ads_json', "AdminController@adsJson")->name('admin.ads_json');
    Route::post('/ad/{id}/activate', "AdminController@adActivate")->name('ad.activate');
    Route::post('/ad/{id}/deactivate', "AdminController@adDeactivate")->name('ad.deactivate');
+});
+
+Route::group(['prefix' => 'prod'], function () {
+    Route::get('/{category}/{slug}', "ProductController@detail")->name('product.detail');
 });
