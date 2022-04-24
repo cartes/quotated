@@ -56,7 +56,7 @@ class Product extends Model
     use DatesTranslator;
 
     protected $fillable = [
-        'seller_id', 'category_id', 'slug', 'buyer_id', 'title', 'description', 'price'
+        'seller_id', 'category_id', 'slug', 'buyer_id', 'title', 'description', 'price', 'condition'
     ];
 
     const PUBLISHED = 1;

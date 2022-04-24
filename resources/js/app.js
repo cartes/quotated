@@ -4,7 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import productContact from "./components/products/productContact";
+
+ require('./bootstrap');
 
 window.Vue = require('vue');
 
@@ -41,6 +43,10 @@ Vue.component("ads-list", Ads);
 import formProducts from "./components/products/formProducts";
 Vue.component("form-products", formProducts);
 
+import productDetail from "./components/products/productDetail";
+Vue.component("product-detail", productDetail);
+
+Vue.component("product-contact", productContact);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

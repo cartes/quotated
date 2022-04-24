@@ -131,11 +131,13 @@
             onSubmit(e) {
                 this.isPosting = true;
                 let formData = new FormData();
+                console.log(this.form);
                 formData.append('title', this.form.title);
                 formData.append('catId', this.catId);
                 formData.append('price', this.form.price);
                 formData.append('condition', this.form.condition);
                 formData.append('description', this.form.description);
+
 
                 $.each(this.form.files, function (key,image) {
                     formData.append(`picture[${key}]`, image);
@@ -148,7 +150,7 @@
                     }
                 ).then(response => {
                     this.isPosting = false;
-                    console.log(response.data);
+
                 }).catch(error => {
                     console.log(error);
                 });

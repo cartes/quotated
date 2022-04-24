@@ -17,4 +17,6 @@ return [
     'throttled' => 'Por favor espera antes de intentar de nuevo.',
     'token'     => 'El token de recuperación de contraseña es inválido.',
     'user'      => 'No podemos encontrar ningún usuario con ese correo electrónico.',
+    'Send Password Reset Link' => 'Enviar enlace para restablecer la contraseña'
+
 ];

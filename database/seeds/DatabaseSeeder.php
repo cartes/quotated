@@ -1,6 +1,72 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Category;
+
+class CategorySeeder extends Seeder {
+    public function run() {
+        $cats = [
+            [
+                'title' => 'Automoviles',
+                'slug' => 'automoviles',
+                'cat_parent' => null,
+                'order' => 2
+            ],
+            [
+                'title' => 'Productos congelados',
+                'slug' => 'productos_congelados',
+                'cat_parent' => null,
+                'order' => 0
+            ],
+            [
+                'title' => 'Productos frescos',
+                'slug' => 'productos_frescos',
+                'cat_parent' => null,
+                'order' => 1
+            ],
+            [
+                'title' => 'Propiedades',
+                'slug' => 'propiedades',
+                'cat_parent' => null,
+                'order' => 3
+            ],
+            [
+                'title' => 'Embarcaciones',
+                'slug' => 'embarcaciones',
+                'cat_parent' => null,
+                'order' => 4
+            ],
+            [
+                'title' => 'Equipamientos oficina',
+                'slug' => 'equipamientos_oficina',
+                'cat_parent' => null,
+                'order' => 5
+            ],
+            [
+                'title' => 'Equipamiento profesional',
+                'slug' => 'equipamiento_profesional',
+                'cat_parent' => null,
+                'order' => 6
+            ],
+            [
+                'title' => 'Infraestructura',
+                'slug' => 'infraestructura',
+                'cat_parent' => null,
+                'order' => 7
+            ],
+            [
+                'title' => 'Otros',
+                'slug' => 'otros',
+                'cat_parent' => null,
+                'order' => 8
+            ],
+        ];
+        foreach ($cats as $category) {
+            Category::create($category);
+        }
+
+    }
+}
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,7 +102,7 @@ class DatabaseSeeder extends Seeder
         factory(\App\User::class, 1)->create([
             'name' => 'buyer',
             'surname' => 'smith',
-            'email' => 'buyer@email.com',
+                'email' => 'buyer@email.com',
             'password' => bcrypt('secret'),
             'role_id' => \App\Role::USER
         ])->each(function (\App\User $user) {
@@ -45,7 +111,7 @@ class DatabaseSeeder extends Seeder
             $user->image()->save(factory(\App\Image::class)->make());
         });
 
-        factory(\App\User::class, 10)->create()
+        factory(\App\User::class, 5)->create()
             ->each(function (\App\User $user) {
                 factory(\App\Buyer::class, 1)->create(['user_id' => $user->id]);
                 factory(\App\Seller::class, 1)->create(['user_id' => $user->id]);
@@ -53,7 +119,7 @@ class DatabaseSeeder extends Seeder
                 $user->image()->save(factory(\App\Image::class)->make());
         });
 
-        factory(\App\User::class, 20)->create()
+        factory(\App\User::class, 5)->create()
             ->each(function (\App\User $user) {
                 factory(\App\Buyer::class, 1)->create(['user_id' => $user->id]);
 
@@ -61,20 +127,16 @@ class DatabaseSeeder extends Seeder
 
             });
 
-        factory(\App\Category::class, 15)->create();
+        $this->call(CategorySeeder::class);
 
-        factory(\App\Product::class, 10)->create()->each(function (\App\Product $p) {
+        factory(\App\Product::class, 5)->create()->each(function (\App\Product $p) {
             factory(\App\ProductCar::class, 1)->create(['product_id' => $p->id]);
+            $p->status()->create(['status' => 1]);
             $p->images()->save(factory(\App\Image::class)->make());
         });
-        factory(\App\Product::class, 10)->create()->each(function (\App\Product $p) {
+        factory(\App\Product::class, 5)->create()->each(function (\App\Product $p) {
+            $p->status()->create(['status' => 1]);
             factory(\App\ProductEstate::class, 1)->create(['product_id' => $p->id]);
-        });
-        factory(\App\Product::class, 20)->create()->each(function (\App\Product $p) {
-            factory(\App\ProductService::class, 1)->create(['product_id' => $p->id]);
-        });
-        factory(\App\Product::class, 20)->create()->each(function (\App\Product $p) {
-            factory(\App\ProductMeta::class, 1)->create(['product_id' => $p->id]);
         });
 
         factory(\App\Search::class, 50)->create();

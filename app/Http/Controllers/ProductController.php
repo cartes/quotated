@@ -36,7 +36,18 @@ class ProductController extends Controller
             return response()->json($categories);
         }
 
-        return abort(401, 'No puedes estar  en esta zona');
+        return abort(401, 'No puedes estar en esta zona');
+    }
+
+    public function getImages($id)
+    {
+        if (\request()->ajax()) {
+            $images = Product::where('id', '=', $id)->with('images', 'seller')->get();
+
+            return response()->json($images[0]);
+        }
+        return abort(401, 'No puedes estar en esta zona');
+
     }
 
     public function store(Request $request)
@@ -90,5 +101,13 @@ class ProductController extends Controller
 
         return view("products.detail")->with(["product" => $product, "categories" => $categories]);
 
+    }
+
+    /* Publications CRUD methods */
+    public function list() {
+        $user = auth()->user();
+        $products = Product::whereSellerId($user->id)->get();
+
+        dd($products);
     }
 }

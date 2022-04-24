@@ -23,6 +23,26 @@ class HomeController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('home')->with(['products' => $products, 'categories' => $categories]);
+        return view('home')->with([
+            'message' => null,
+            'products' => $products,
+            'categories' => $categories
+        ]);
+    }
+
+    public function stored() {
+        $categories = Category::where('cat_parent', '=', null)->get();
+        $products = Product::with('seller', 'category', "reviews", 'images', 'status')
+            ->whereHas('status', function ($query) {
+                $query->where('status', '=', '1');
+            })
+            ->latest()
+            ->paginate(15);
+
+        return view('Home')->with([
+            'message' => ['type' => 'success', 'text' => 'Su aviso será publicado, una vez revisado'],
+            'products' => $products,
+            'categories' => $categories
+        ]);
     }
 }

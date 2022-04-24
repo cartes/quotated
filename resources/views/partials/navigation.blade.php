@@ -45,9 +45,11 @@
                                     </a>
 
                                     <div class="dropdown-menu" aria-labelledby="categoryDropdown">
-                                        @foreach($categories as $cat)
-                                            <a class="dropdown-item" href="#">{{ $cat->title }}</a>
-                                        @endforeach
+                                        @isset ($categories)
+                                            @foreach($categories as $cat)
+                                                <a class="dropdown-item" href="#">{{ $cat->title }}</a>
+                                            @endforeach
+                                        @endisset
                                     </div>
                                 </li>
                                 <li class="nav-item"><a href="{{ route("product.create") }}"
