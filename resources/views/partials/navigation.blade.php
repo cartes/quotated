@@ -47,7 +47,8 @@
                                     <div class="dropdown-menu" aria-labelledby="categoryDropdown">
                                         @isset ($categories)
                                             @foreach($categories as $cat)
-                                                <a class="dropdown-item" href="#">{{ $cat->title }}</a>
+                                                <a class="dropdown-item"
+                                                   href="/category/{{ $cat->slug  }}">{{ $cat->title }}</a>
                                             @endforeach
                                         @endisset
                                     </div>

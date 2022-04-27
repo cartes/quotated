@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @if($message)
+        @if(!is_null($message))
             <div id="alerts">
                 <div class="alert alert-{{$message['type']}}">
                     {{ $message['text'] }}

@@ -30,7 +30,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.productId)
         this.id = this.productId;
     },
     methods: {
@@ -42,8 +41,6 @@ export default {
                     this.items = [
                         {'email': resp.data.seller.email, 'telefono': resp.data.seller.phone},
                     ];
-
-                    console.log(resp.data.seller.phone);
                 })
                 .catch(error => {
                     console.error(error);

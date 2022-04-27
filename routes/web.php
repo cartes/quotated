@@ -80,10 +80,15 @@ Route::group(['prefix' => 'prod'], function () {
     Route::get('/{category}/{slug}', "ProductController@detail")->name('product.detail');
 });
 
+Route::group(['prefix' => 'category'], function() {
+    Route::get('/{slug}', [CategoryController::class, 'posts']);
+});
+
 Route::group(['prefix' => 'api'], function () {
     Route::get('/contact/{id}', [SellerController::class, 'contactInfo']);
     Route::get('/images/{id}', 'ProductController@getImages');
     Route::get('/category/{id?}', 'CategoryController@getCategories');
     Route::get('/categories/', 'CategoryController@getCategories');
+    Route::get('/product/detail/{id}', [ProductController::class, 'getProductoDetail']);
     Route::post('/producto/publica', [CategoryController::class, 'create']);
 });

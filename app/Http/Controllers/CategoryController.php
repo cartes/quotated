@@ -46,4 +46,21 @@ class CategoryController extends Controller
             return response()->json(['code' => 200, 'message' => 'HA subido correctamente']);
         }
     }
+
+    public function posts($slug) {
+        $categories = Category::all();
+        $cat = Category::where('slug', '=', $slug)->select('id', 'title')->first();
+        $products = Product::whereCategoryId($cat->id)
+            ->latest()
+            ->paginate(20);
+
+        //dd($products);
+
+        return view('home')->with([
+            'message' => null,
+            'products' => $products,
+            'category' => $cat->title,
+            'categories' => $categories
+        ]);
+    }
 }

@@ -44,8 +44,10 @@ import formProducts from "./components/products/formProducts";
 Vue.component("form-products", formProducts);
 
 import productDetail from "./components/products/productDetail";
+import listProducts from "./components/products/listProducts";
 Vue.component("product-detail", productDetail);
 
+Vue.component('product-list', listProducts);
 Vue.component("product-contact", productContact);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

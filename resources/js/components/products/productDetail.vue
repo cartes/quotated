@@ -4,12 +4,12 @@
             :id="title"
             controls
             indicators
-            img-width="635px"
-            img-height="580px"
+            img-width="580"
+            img-height="580"
         >
             <b-carousel-slide v-for="image in sliderImages" v-bind:key="image">
                 <template #img>
-                    <img class="d-block img-fluid w-100" width="635" height="480" :src="image" />
+                    <b-img block center thumbnail fluid width="580" height="580" :src="image"></b-img>
                 </template>
             </b-carousel-slide>
         </b-carousel>

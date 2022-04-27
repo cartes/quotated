@@ -7,6 +7,7 @@ use App\Helpers\Helper;
 use App\Image;
 use App\Product;
 use App\Seller;
+use App\Status;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,39 @@ class ProductController extends Controller
         $catName = Category::whereId($id)->select('title')->first();
 
         return response()->json($catName);
+    }
+
+    public function detail($category, $slug)
+    {
+        $product = Product::whereSlug($slug)->with('seller', 'category', 'reviews', 'images', 'status')->first();
+        $categories = Category::where('cat_parent', '=', null)->get();
+
+        return view("products.detail")->with(["product" => $product, "categories" => $categories]);
+
+    }
+
+    /* Publications CRUD methods */
+    public function list() {
+        $user = auth()->user();
+        $seller = Seller::whereUserId($user->id)->select(['id'])->first();
+        $products = Product::whereSellerId($seller->id)->with(['status', 'images', 'category'])
+            ->latest()
+            ->get();
+
+        return view('admin.posts')->with(["products" => $products]);
+    }
+
+    /* Respuestas API's */
+
+    public function getProductoDetail($id){
+        if (request()->ajax()) {
+            $product = Product::whereId($id)->select(['id', 'title', 'description', 'price', 'quantity', 'condition', 'created_at', 'category_id'])
+                ->with(['status', 'images', 'category'])
+                ->first();
+
+            return response()->json($product);
+        }
+        return abort(401, 'No puedes estar en esta zona');
     }
 
     public function getCategoryChildren($id)
@@ -78,6 +112,11 @@ class ProductController extends Controller
                     'price' => $price,
                     'description' => $description
                 ]);
+                $status = new Status();
+
+                $status->status = 0;
+
+                $product->status()->save($status);
 
                 foreach ($images as $image) {
                     $imgPath = Storage::disk('public')->put('products/' . $product->id, $image);
@@ -94,20 +133,4 @@ class ProductController extends Controller
         return abort(401, "No puedes estar en esta zona");
     }
 
-    public function detail($category, $slug)
-    {
-        $product = Product::whereSlug($slug)->with('seller', 'category', 'reviews', 'images', 'status')->first();
-        $categories = Category::where('cat_parent', '=', null)->get();
-
-        return view("products.detail")->with(["product" => $product, "categories" => $categories]);
-
-    }
-
-    /* Publications CRUD methods */
-    public function list() {
-        $user = auth()->user();
-        $products = Product::whereSellerId($user->id)->get();
-
-        dd($products);
-    }
 }

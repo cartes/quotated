@@ -146,7 +146,6 @@ export default {
             this.currentCat = "productGenericForm";
         },
         setCategory(cat) {
-            console.log(cat);
             this.productSave.category = cat;
             this.firstStep = !this.firstStep;
             this.secondStep = true;
