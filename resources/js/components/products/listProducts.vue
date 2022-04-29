@@ -62,10 +62,10 @@
                                         variant="success">
                                         Publicado
                                     </b-badge>
-                                    <b-link class="d-block" href="#">
+                                    <b-link @click="editItem(product.id)" class="d-block" href="#">
                                         Editar
                                     </b-link>
-                                    <b-link href="#" class="d-block text-danger">
+                                    <b-link href="#" v-model="idProduct" @click="deleteItem(product.id, product.title)" class="d-block text-danger">
                                         Borrar
                                     </b-link>
                                 </b-card-text>
@@ -89,7 +89,10 @@ export default {
     },
     data() {
         return {
-            listProducts: []
+            listProducts: [],
+            idProduct: null,
+            boton: false,
+
         }
     },
     mounted() {
@@ -101,8 +104,6 @@ export default {
                 console.error(error)
             })
         });
-
-        console.log(this.listProducts);
     },
     computed: {
         sortedArray() {
@@ -113,6 +114,19 @@ export default {
         formatPrice(value) {
             let val = (value / 1);
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+        deleteItem(idProduct, title) {
+            if(confirm('Seguro que deseas borrar el artículo ' + title)) {
+                let url="/product/delete/" + idProduct;
+                console.log(url);
+                window.axios.delete(url).then(resp => {
+                    window.location.reload();
+                })
+            }
+        },
+        editItem(idProduct) {
+            let url="/product/edit/" + idProduct;
+            window.location = url;
         }
     }
 }

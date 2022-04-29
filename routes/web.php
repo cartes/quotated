@@ -51,6 +51,8 @@ Route::group(['prefix' => 'product', 'middleware' => ['auth', sprintf("role:%s,%
     Route::get('/category/{id}/name', "ProductController@getCategoryName")->name("product.category.name");
     Route::post('/store', "ProductController@store")->name("product.store");
     Route::get('/stored/{id}', 'HomeController@stored')->name('product.stored');
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::delete('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
 });
 
 Route::group(['prefix' => 'admin'], function () { //, 'middleware' => ['auth', sprintf("role:%s", \App\Role::ADMIN)]
@@ -90,5 +92,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/category/{id?}', 'CategoryController@getCategories');
     Route::get('/categories/', 'CategoryController@getCategories');
     Route::get('/product/detail/{id}', [ProductController::class, 'getProductoDetail']);
+    Route::post('/product/update/', [ProductController::class, 'updateProduct']);
     Route::post('/producto/publica', [CategoryController::class, 'create']);
 });

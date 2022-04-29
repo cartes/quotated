@@ -45,10 +45,13 @@ Vue.component("form-products", formProducts);
 
 import productDetail from "./components/products/productDetail";
 import listProducts from "./components/products/listProducts";
+ import productEdit from "./components/products/productEdit";
 Vue.component("product-detail", productDetail);
 
 Vue.component('product-list', listProducts);
 Vue.component("product-contact", productContact);
+Vue.component('product-edit', productEdit);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -16,6 +16,9 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     public function create()
     {
         $categories = Category::where('cat_parent', '=', null)->get();
@@ -47,6 +50,16 @@ class ProductController extends Controller
             ->get();
 
         return view('admin.posts')->with(["products" => $products]);
+    }
+
+    public function edit($id) {
+        $user = auth()->user();
+        $seller = Seller::whereUserId($user->id)->select('id')->first();
+
+        $product = Product::whereId($id)->where('seller_id', '=', $seller->id)->select('id')->first();
+
+        return view('admin.productEdit')->with(["idProduct" => $product->id]);
+
     }
 
     /* Respuestas API's */
@@ -131,6 +144,43 @@ class ProductController extends Controller
         }
 
         return abort(401, "No puedes estar en esta zona");
+    }
+
+    public function updateProduct (Request $request) {
+        if (\request()->ajax()) {
+            $user = auth()->user();
+            $seller = Seller::firstOrCreate(['user_id' => $user->id],
+                ["user_id" => $user->id]
+            );
+
+            $product = Product::whereId(\request('id'))
+                ->where('seller_id', '=', $seller->id)
+                ->update([
+                    'description' => \request('description'),
+                    'price' => \request('price'),
+                    'condition' => \request('condition'),
+                ]);
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'updated'
+            ]);
+        }
+
+        return abort(401, "No puedes estar en esta zona");
+
+    }
+
+    public function delete($id)
+    {
+        if (\request()->ajax()) {
+            Product::whereId($id)->delete();
+
+            return response()->json(['code'=> 200, 'message'=> 'Producto Borrado']);
+
+        }
+        return abort(401, "No puedes estar en esta zona");
+
     }
 
 }
