@@ -3,6 +3,7 @@
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\ProductController;
 use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
 
@@ -20,6 +21,7 @@ use Intervention\Image\Facades\Image;
 Route::get('/', "HomeController@index");
 Route::get('login', "LoginController@showLoginForm")->name('login');
 Route::get('register', "Auth\RegisterController@showRegistrationForm")->name('register');
+Route::post('/buscar', [HomeController::class, 'search'])->name('buscar');
 
 Auth::routes();
 

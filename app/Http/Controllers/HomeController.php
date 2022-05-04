@@ -45,4 +45,19 @@ class HomeController extends Controller
             'categories' => $categories
         ]);
     }
+
+    public function search(Request $request) {
+        $products = Product::where('title', 'like',  '%' . $request->input('search') . '%')
+            ->latest()
+            ->paginate(15);
+        $categories = Category::where('cat_parent', '=', null)->get();
+
+        return view('home')->with([
+            'message' => null,
+            'products' => $products,
+            'categories' => $categories
+        ]);
+
+    }
+
 }

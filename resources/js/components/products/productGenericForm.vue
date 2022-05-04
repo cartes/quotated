@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style scoped>
-.custom-file-input ~ .custom-file-label::after {
+.custom-file-input .custom-file-label::after {
     content: 'Elegir' !important;
 }
 </style>

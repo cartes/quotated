@@ -8,13 +8,15 @@
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <form method="post" class="form">
+                    <form method="post" class="form" action="{{ route('buscar') }}">
+                        @csrf
                         <div class="form-group">
                             <div class="input-group">
                                 <input name="search" type="text" class="form-control" placeholder="Buscar productos"
                                        aria-label="Buscar productos">
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i>
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
