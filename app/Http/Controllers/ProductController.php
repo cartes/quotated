@@ -16,9 +16,11 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
+
     public function create()
     {
         $categories = Category::where('cat_parent', '=', null)->get();
@@ -42,7 +44,8 @@ class ProductController extends Controller
     }
 
     /* Publications CRUD methods */
-    public function list() {
+    public function list()
+    {
         $user = auth()->user();
         $seller = Seller::whereUserId($user->id)->select(['id'])->first();
         $products = Product::whereSellerId($seller->id)->with(['status', 'images', 'category'])
@@ -52,7 +55,8 @@ class ProductController extends Controller
         return view('admin.posts')->with(["products" => $products]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $user = auth()->user();
         $seller = Seller::whereUserId($user->id)->select('id')->first();
 
@@ -64,7 +68,8 @@ class ProductController extends Controller
 
     /* Respuestas API's */
 
-    public function getProductoDetail($id){
+    public function getProductoDetail($id)
+    {
         if (request()->ajax()) {
             $product = Product::whereId($id)->select(['id', 'title', 'description', 'price', 'quantity', 'condition', 'created_at', 'category_id'])
                 ->with(['status', 'images', 'category'])
@@ -146,7 +151,8 @@ class ProductController extends Controller
         return abort(401, "No puedes estar en esta zona");
     }
 
-    public function updateProduct (Request $request) {
+    public function updateProduct(Request $request)
+    {
         if (\request()->ajax()) {
             $user = auth()->user();
             $seller = Seller::firstOrCreate(['user_id' => $user->id],
@@ -160,6 +166,21 @@ class ProductController extends Controller
                     'price' => \request('price'),
                     'condition' => \request('condition'),
                 ]);
+
+            $images = \request('picture');
+            if (!is_null($images)) {
+                foreach ($images as $image) {
+                    $imgPath = Storage::disk('public')->put('products/' . \request('id'), $image);
+                    $image = new Image();
+                    $image->picture = $request->title;
+                    $image->path = $imgPath;
+                    $image->imageable_type = 'App\\Product';
+                    $image->imageable_id = \request('id');
+
+                    $image->save();
+                }
+            }
+
 
             return response()->json([
                 'code' => 200,
@@ -176,11 +197,21 @@ class ProductController extends Controller
         if (\request()->ajax()) {
             Product::whereId($id)->delete();
 
-            return response()->json(['code'=> 200, 'message'=> 'Producto Borrado']);
+            return response()->json(['code' => 200, 'message' => 'Producto Borrado']);
 
         }
         return abort(401, "No puedes estar en esta zona");
 
     }
 
+    public function deleteImage($id)
+    {
+        if (\request()->ajax()) {
+            Image::whereId($id)->delete();
+
+            return response()->json(['code' => 200, 'message' => 'Imagen Borrada']);
+        }
+
+        return abort(401, "No puedes estar en esta zona");
+    }
 }

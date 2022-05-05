@@ -94,6 +94,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/category/{id?}', 'CategoryController@getCategories');
     Route::get('/categories/', 'CategoryController@getCategories');
     Route::get('/product/detail/{id}', [ProductController::class, 'getProductoDetail']);
+    Route::delete('/product/image/{id}', [ProductController::class, 'deleteImage']);
     Route::post('/product/update/', [ProductController::class, 'updateProduct']);
     Route::post('/producto/publica', [CategoryController::class, 'create']);
 });

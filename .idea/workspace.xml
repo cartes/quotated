@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c3f88c3e-fd91-4a25-88a8-362d58dc9f25" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/products/productGenericForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/products/productGenericForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/navigation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/navigation.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/products/productEdit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/products/productEdit.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -304,7 +306,7 @@
       <workItem from="1651204446368" duration="3052000" />
       <workItem from="1651247856370" duration="8591000" />
       <workItem from="1651529572644" duration="662000" />
-      <workItem from="1651697952901" duration="2073000" />
+      <workItem from="1651697952901" duration="11488000" />
     </task>
     <task id="LOCAL-00001" summary="first version">
       <created>1587522716956</created>
