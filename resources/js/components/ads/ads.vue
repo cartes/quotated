@@ -58,6 +58,8 @@
                 options: {
                     filterByColumn: true,
                     filterable: ['title', 'description'],
+                    orderBy: 'created_at',
+                    ascending: false,
                     perPage: 25,
                     perPageValues: [25, 50, 50, 100, 500],
                     headings: {
@@ -72,7 +74,8 @@
                     requestFunction: data => {
                         return window.axios.get(this.url, {
                             params: data,
-                        }).catch(function (e) {
+                        })
+                        .catch(function (e) {
                             console.log(e);
                         }.bind(this))
                     }

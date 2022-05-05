@@ -77,6 +77,14 @@
             </b-form-file>
         </b-form-group>
 
+        <b-form-group v-if="images" id="preview">
+            <div class="row">
+                <div v-for="image in images" class="col-md-2">
+                    <img class="w-100 h-auto" :src="image"/>
+                </div>
+            </div>
+        </b-form-group>
+
 
         <b-form-group>
             <b-button :disabled="boton" type="submit" variant="primary">
@@ -184,6 +192,7 @@ export default {
             })
         },
         onImageChange(e) {
+            this.images = [];
             let files = e.target.files || e.dataTransfer.files;
             if (files.length <= this.cantImages) {
                 for (let file of files) {

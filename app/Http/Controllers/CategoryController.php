@@ -51,16 +51,27 @@ class CategoryController extends Controller
         $categories = Category::all();
         $cat = Category::where('slug', '=', $slug)->select('id', 'title')->first();
         $products = Product::whereCategoryId($cat->id)
+            ->whereHas('status', function ($query) {
+                $query->where('status', '=', '1');
+            })
             ->latest()
             ->paginate(20);
 
-        //dd($products);
+        $last = Product::with('seller', 'category', "reviews", 'images', 'status')
+            ->whereHas('status', function ($query) {
+                $query->where('status', '=', '1');
+            })
+            ->latest()
+            ->take(4)
+            ->get();
 
-        return view('home')->with([
+
+        return view('categories')->with([
             'message' => null,
             'products' => $products,
             'category' => $cat->title,
-            'categories' => $categories
+            'categories' => $categories,
+            'last' => $last
         ]);
     }
 }
