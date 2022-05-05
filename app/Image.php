@@ -31,9 +31,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Image extends Model
 {
+    public function picture() {
+
+    }
     public function pathProduct()
     {
-        return env('APP_URL') . '/imgprod/products/' . $this->path;
+        return env('APP_URL') . '/storage/' . $this->path;
     }
 
     public function pathUser()

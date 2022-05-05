@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     public function categories()
     {
         $categories = Category::where('cat_parent', '=', null);
@@ -19,13 +22,14 @@ class AdminController extends Controller
 
     public function categoriesJSON()
     {
-        if (request()->ajax()) {
-            $vueTables = new EloquentVueTables();
-            $data = $vueTables->get(new Category(), ['id', 'title', 'cat_parent', 'order'], ['children']);
+        $data = Category::all();
+        //if (request()->ajax()) {
+        //    $vueTables = new EloquentVueTables();
+        //    $data = $vueTables->get(new Category(), ['id', 'title', 'cat_parent', 'order'], ['children']);
 
             return response()->json($data);
-        }
-        return abort(401);
+        //}
+        //return abort(401);
     }
 
     public function category_create()

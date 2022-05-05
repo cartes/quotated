@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <h2>Agregar producto a {{ this.catTitle }}</h2>
-
+    <section>
         <b-form class="form" enctype="multipart/form-data" @submit.prevent="onSubmit">
             <div class="row">
                 <b-form-group
@@ -70,114 +68,21 @@
                 </b-button>
             </b-form-group>
         </b-form>
-    </div>
+    </section>
 </template>
 
 <script>
 export default {
-    name: "productGenericForm",
+    name: "editProducts",
     props: {
-        catId: {
+        productID: {
             type: Number,
             required: true
-        },
-    },
-    computed: {
-        state() {
-            return this.form.files.length > 5 ? false : true;
-        },
-        invalidFeedback() {
-            if (this.form.files.length <= 5) {
-                this.boton = false;
-                return '';
-            } else {
-                this.boton = true;
-                return 'No más de cinco archivos por favor (5)';
-            }
-        },
-        validFeedback() {
-            return "Puedes subir hasta 5 fotos"
-        },
-    },
-    data() {
-        return {
-            form: {
-                title: '',
-                description: '',
-                price: '',
-                condition: null,
-                files: [],
-            },
-            optionsCondition: [
-                {value: null, text: 'Seleccione una opción'},
-                {value: 1, text: 'Nuevo'},
-                {value: 2, text: 'Usado'},
-                {value: 3, text: 'Restaurado'}
-            ],
-            catTitle: '',
-            boton: false,
-            images: [],
-            isPosting: false,
-        }
-    },
-    mounted() {
-        this.getCatName();
-    },
-    methods: {
-        getCatName() {
-            let url = "/product/category/" + this.catId + "/name";
-            axios.get(url).then(res => {
-                this.catTitle = res.data.title;
-            });
-        },
-        onSubmit(e) {
-            this.isPosting = true;
-            let formData = new FormData();
-            formData.append('title', this.form.title);
-            formData.append('catId', this.catId);
-            formData.append('price', this.form.price);
-            formData.append('condition', this.form.condition);
-            formData.append('description', this.form.description);
-
-
-            $.each(this.form.files, function (key, image) {
-                formData.append(`picture[${key}]`, image);
-            });
-
-            axios.post("/product/store", formData, {
-                    headers: {
-                        "x-csrf-token": document.head.querySelector("meta[name=csrf-token]").content
-                    }
-                }
-            ).then(response => {
-                this.isPosting = false;
-                window.location.href = '/posts/list';
-            }).catch(error => {
-                console.log(error);
-            });
-        },
-        onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            for (let file of files) {
-                this.createImage(file);
-            }
-        },
-        createImage(file) {
-            let reader = new FileReader();
-            let vm = this;
-
-            reader.onload = (e) => {
-                vm.images.push(e.target.result);
-            };
-
-            reader.readAsDataURL(file);
         }
     }
 }
 </script>
 
 <style scoped>
-.custom-file-input .custom-file-label::after {
-    content: 'Elegir' !important;
-}
+
 </style>
