@@ -48,7 +48,7 @@ Route::get('/imgprod/{path}/{id}/{attachment?}', function ($path, $id, $attachme
 });
 
 Route::group(['prefix' => 'product', 'middleware' => ['auth', sprintf("role:%s,%s", \App\Role::USER, \App\Role::ADMIN)]], function () {
-    Route::get('/create', "ProductController@create")->name("product.create");
+    Route::get('/create', [ProductController::class, 'create'])->name("product.create");
     Route::get('/category/{id}/children', 'ProductController@getCategoryChildren')->name("product.category.children");
     Route::get('/category/{id}/name', "ProductController@getCategoryName")->name("product.category.name");
     Route::post('/store', "ProductController@store")->name("product.store");
@@ -91,7 +91,7 @@ Route::group(['prefix' => 'category'], function() {
 Route::group(['prefix' => 'api'], function () {
     Route::get('/contact/{id}', [SellerController::class, 'contactInfo']);
     Route::get('/images/{id}', 'ProductController@getImages');
-    Route::get('/category/{id?}', 'CategoryController@getCategories');
+    Route::get('/category/{id?}', [CategoryController::class, 'getCategories']);
     Route::get('/categories/', 'CategoryController@getCategories');
     Route::get('/product/detail/{id}', [ProductController::class, 'getProductoDetail']);
     Route::delete('/product/image/{id}', [ProductController::class, 'deleteImage']);

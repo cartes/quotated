@@ -16,11 +16,6 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function create()
     {
         $categories = Category::where('cat_parent', '=', null)->get();
@@ -47,12 +42,16 @@ class ProductController extends Controller
     public function list()
     {
         $user = auth()->user();
+        $categories = Category::where('cat_parent', '=', null)->get();
         $seller = Seller::whereUserId($user->id)->select(['id'])->first();
         $products = Product::whereSellerId($seller->id)->with(['status', 'images', 'category'])
             ->latest()
             ->get();
 
-        return view('admin.posts')->with(["products" => $products]);
+        return view('admin.posts')->with([
+            "products" => $products,
+            "categories" => $categories
+        ]);
     }
 
     public function edit($id)

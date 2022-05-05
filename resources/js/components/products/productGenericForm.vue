@@ -56,7 +56,7 @@
                 ></b-form-file>
             </b-form-group>
 
-            <b-form-group v-if="images">
+            <b-form-group v-if="images" id="preview">
                 <div class="row">
                     <div v-for="image in images" class="col-md-2">
                         <img class="w-100 h-auto" :src="image"/>
@@ -115,6 +115,7 @@ export default {
                 {value: 3, text: 'Restaurado'}
             ],
             catTitle: '',
+            filesArray: null,
             boton: false,
             images: [],
             isPosting: false,
@@ -140,7 +141,7 @@ export default {
             formData.append('description', this.form.description);
 
 
-            $.each(this.form.files, function (key, image) {
+            $.each(this.filesArray, function (key, image) {
                 formData.append(`picture[${key}]`, image);
             });
 
@@ -157,17 +158,17 @@ export default {
             });
         },
         onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            for (let file of files) {
+            this.images = [];
+            this.filesArray = e.target.files || e.dataTransfer.files;
+            for (let file of this.filesArray) {
                 this.createImage(file);
             }
         },
         createImage(file) {
             let reader = new FileReader();
-            let vm = this;
 
             reader.onload = (e) => {
-                vm.images.push(e.target.result);
+                this.images.push(e.target.result);
             };
 
             reader.readAsDataURL(file);

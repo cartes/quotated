@@ -93,10 +93,14 @@ class AdminController extends Controller
         return view("admin.users")->with('categories', $categories);
     }
 
-    public function usersJson()
+    public function usersJson(Request $request)
     {
         if (\request()->ajax()) {
             $vuetables = new EloquentVueTables();
+            $request->merge([
+                'orderBy'=> 'id',
+                'ascending' => false
+            ]);
             $data = $vuetables->get(new User(), ['id', 'name', 'surname', 'email', 'birthday', 'phone'], ['status']);
 
             return response()->json($data);
@@ -161,15 +165,20 @@ class AdminController extends Controller
 
     public function ads()
     {
-        $categories = Category::where('cat_parent', '=', null)->get();
+        $categories = Category::where('cat_parent', '=', null)->latest()->get();
         return view("admin.ads")->with('categories', $categories);
     }
 
-    public function adsJson()
+    public function adsJson(Request $request)
     {
         if (\request()->ajax()) {
             $vuetables = new EloquentVueTables();
+            $request->merge([
+                'orderBy'=> 'created_at',
+                'ascending' => false
+            ]);
             $data = $vuetables->get(new Product(), ['id', 'seller_id', 'title', 'description', 'created_at', 'price'], ['status', 'seller'], ['status']);
+
 
             return response()->json($data);
         }

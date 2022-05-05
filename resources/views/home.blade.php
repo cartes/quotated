@@ -25,14 +25,4 @@
         </div>
     </div>
 
-    <script>
-        jQuery(document).ready(function($) {
-            $('.alert').each(function() {
-                let _this = $(this);
-                setTimeout(function() {
-                    _this.fadeOut();
-                }, 3000)
-            })
-        })
-    </script>
 @endsection
