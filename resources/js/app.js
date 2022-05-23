@@ -45,8 +45,12 @@ Vue.component("form-products", formProducts);
 
 import productDetail from "./components/products/productDetail";
 import listProducts from "./components/products/listProducts";
- import productEdit from "./components/products/productEdit";
+import productEdit from "./components/products/productEdit";
+import IframeView from "./components/IframeView";
+
 Vue.component("product-detail", productDetail);
+
+Vue.component('iframe-view', IframeView);
 
 Vue.component('product-list', listProducts);
 Vue.component("product-contact", productContact);

@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+
     public function create()
     {
         $categories = Category::where('cat_parent', '=', null)->get();
@@ -66,6 +67,19 @@ class ProductController extends Controller
     }
 
     /* Respuestas API's */
+    public function APIproducts() {
+        $products = Product::with('seller', 'category', "reviews", 'images', 'status')
+            ->whereHas('status', function ($query) {
+                $query->where('status', '=', '1');
+            })
+            ->take(18)
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'products' => $products
+        ]);
+    }
 
     public function getProductoDetail($id)
     {

@@ -47,6 +47,8 @@ Route::get('/imgprod/{path}/{id}/{attachment?}', function ($path, $id, $attachme
     }
 });
 
+Route::get('/iframe', [HomeController::class, 'iframe']);
+
 Route::group(['prefix' => 'product', 'middleware' => ['auth', sprintf("role:%s,%s", \App\Role::USER, \App\Role::ADMIN)]], function () {
     Route::get('/create', [ProductController::class, 'create'])->name("product.create");
     Route::get('/category/{id}/children', 'ProductController@getCategoryChildren')->name("product.category.children");
@@ -97,4 +99,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/product/image/{id}', [ProductController::class, 'deleteImage']);
     Route::post('/product/update/', [ProductController::class, 'updateProduct']);
     Route::post('/producto/publica', [CategoryController::class, 'create']);
+    Route::get('/products/', [ProductController::class, 'APIproducts']);
 });
