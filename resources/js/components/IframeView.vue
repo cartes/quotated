@@ -1,11 +1,11 @@
 <template>
-    <div class="container w-100">
+    <div id="iframe" class="container w-100">
         <b-carousel
             :interval="5000"
             controls
             indicators
             img-width="620"
-            img-height="700"
+            img-height="905"
         >
             <b-carousel-slide img-blank>
             <div class="row pt-5">
@@ -18,7 +18,7 @@
                                  class='card-img-top embed-responsive-item'/>
                         </div>
                         <div class="card-body">
-                            <a :href="'http://clasificados.aqua.cl/storage/' + product.slug" target="_blank">
+                            <a :href="'http://clasificados.aqua.cl/prod/' + product.category.slug + '/' + product.slug" target="_blank">
                                 <h3 class="text-left" style='font-size: 1.25em;'>
                                     {{ product.title }}
                                 </h3>
@@ -42,7 +42,7 @@
                                  class='card-img-top embed-responsive-item'/>
                         </div>
                         <div class="card-body">
-                            <a :href="'http://clasificados.aqua.cl/storage/' + product.slug" target="_blank">
+                            <a :href="'http://clasificados.aqua.cl/prod/' + product.category.slug + '/' + product.slug" target="_blank">
                                 <h3 class="text-left" style='font-size: 1.25em;'>
                                     {{ product.title }}
                                 </h3>
@@ -90,23 +90,23 @@ export default {
 </script>
 
 <style>
-.container {
+#iframe.container {
     max-width: 650px;
 }
-.card-body {
+#iframe .card-body {
     padding: 0.9rem;
 }
-.card-img-top {
+#iframe .card-img-top {
     max-height: 150px;
     min-height: 150px;
     object-fit: cover;
 }
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
+#iframe .carousel-control-prev-icon,
+#iframe .carousel-control-next-icon {
     background-image: none;
 }
 
-.carousel-control-next-icon:after
+#iframe .carousel-control-next-icon:after
 {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -114,7 +114,7 @@ export default {
     font-size: 55px;
     color: red;
 }
-.carousel-control-prev-icon:after {
+#iframe .carousel-control-prev-icon:after {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     content: "\F053";
